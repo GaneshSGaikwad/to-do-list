@@ -1,112 +1,78 @@
 <div>
     <h1>Add New Task</h1>
-    <!-- <h1>{{currentDate | date:'yyyy-MM-dd'}}</h1> -->
-
-
-    <!-- <label >Id:</label>
-    <input   type="text"  [(ngModel)]="id"  readonly><br><br> -->
     <label >Title:</label>
     <input   type="text"  [(ngModel)]="title" ><br><br>
     <label >Date:</label>
     <input  type="date" [(ngModel)]="date" required ><br><br>
     <label >Description:</label>
     <input  type="text"  [(ngModel)]="desc" required><br><br>
-    
-    <button (click)="onclickSubmit()"  class="btn btn-primary">Submit</button>
+  <button (click)="onclickSubmit()"  class="btn btn-primary">Submit</button>
 </div>
-
-
-
-
+<br>
 
 <div class="row">
-    <!-- <div *ngFor="let item of listService.t1 " #print>
-        <h1>{{title}}</h1>
-        <h1>{{date}}</h1>
-        <h1>{{desc}}</h1>
-        <h1>{{status}}</h1>
-    </div> -->
-
-    
-        
-
-    
     <div class="column"  #queued>
-       
-        <div class="card w-75">
+      <div class="card w-75">
             <div class="card-body">
               <h4 class="card-title">Pending</h4>
               <div class="card-text" *ngFor="let item of listService.t1 ">
                 <!-- <label ><b>Id:</b></label>
                 {{item.id}}<br> -->
-                <p *ngIf="item.status==='pending' ||x===0 || x===1 || x===-1">
+                <p *ngIf="item.status==='pending'">
                 <label ><b>Title:</b></label>
-                
                 {{item.title}}<br>
                 <label > <b>Date: </b></label>
-                
-                  {{item.date.toDateString()}}<br>
+                 {{item.date.toDateString()}}<br>
                   <label ><b>Description: </b></label>
-                  
-                   {{item.desc}}<br>
+                 {{item.desc}}<br>
                    <button  class="btn btn-primary" (click)="markAsDone(item.id)">Mark as Done</button>
-               
-                </p>
+               </p>
                 </div>
-              
             </div>
           </div>
-     
-      
-    </div>
+     </div>
     
+     <br><br>
+
     <div class="column" #today >
         <div class="card w-75">
             <div class="card-body">
               <h4 class="card-title">Due Today</h4>
               <div class="card-text" *ngFor="let item of listService.t1 " >
-                <p *ngIf="x===0">
-
+                <p *ngIf="item.deuDate ==='today' && item.status==='pending'">
                     <label ><b>Title:</b></label>
-                
-                    {{item.title}}<br>
+                      {{item.title}}<br>
                     <label > <b>Date: </b></label>
-                    
                       {{item.date.toDateString()}}<br>
                       <label ><b>Description: </b></label>
-                      
-                       {{item.desc}}<br>
+                      {{item.desc}}<br>
                     </p>
               </div>
             </div>
           </div>  
     </div>
 
-
+    <br><br>
 
     <div class="column" #onedaytogo >
         <div class="card w-75">
             <div class="card-body">
               <h4 class="card-title">One Day To Go</h4>
               <div class="card-text" *ngFor="let item of listService.t1 " >
-                <p *ngIf="x===-1">
-
+                <p *ngIf="item.deuDate ==='tomorrow' && item.status==='pending'">
                     <label ><b>Title:</b></label>
-                
-                    {{item.title}}<br>
+                      {{item.title}}<br>
                     <label > <b>Date: </b></label>
-                    
                       {{item.date.toDateString()}}<br>
                       <label ><b>Description: </b></label>
-                      
-                       {{item.desc}}<br>
+                      {{item.desc}}<br>
                     </p>
               </div>
             </div>
           </div>  
     </div>
 
-
+    <br><br>
 
 
     <div class="column" #completed >
@@ -116,20 +82,14 @@
               <div class="card-text" *ngFor="let i of listService.t1 " >
                <p *ngIf="i.status==='completed'">
                 <label ><b>Title:</b></label>
-                
                 {{i.title}}<br>
                 <label > <b>Date: </b></label>
-                
-                  {{i.date.toDateString()}}<br>
+                {{i.date.toDateString()}}<br>
                   <label ><b>Description: </b></label>
-                  
                    {{i.desc}}<br>
                </p>  
-               
-               
-              </div>
-              
-            </div>
+             </div>
+           </div>
           </div>
      
     </div>

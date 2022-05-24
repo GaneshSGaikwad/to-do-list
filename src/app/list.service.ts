@@ -9,64 +9,48 @@ export class ListService{
 
 
     currentDate = new Date();
-
-
-
-    
-//    title!:string;
-//    private date!:Date;
-//    private desc!:string;
-//    private status!:string;
-
    
    private Days!:number;
 
-   get Day(){
-       return this.Days;
-   }
+//    get Day(){
+//        return this.Days;
+//    }
 
     constructor(){}
 
     t1:task[]=[];
 
-    // const a=this.t1.sort((a,b)=>)
+    
     
 
     addTask($event:any){
-        let t=new task($event["id"],$event["title"],$event["date"],$event["desc"],$event["status"]);
-        console.log(t);
-        this.t1.push(t)
-        console.log(this.t1)
+        let t=new task($event["id"],$event["title"],$event["date"],$event["desc"],$event["status"],$event["deuDate"]);
+        
+       let str: string = this.getDue(t);
+        t.deuDate = str;
+        this.t1.push(t);
 
-        // console.log(t.date)
-        // console.log(this.currentDate.getTime())
-        // console.log(t.date.getTime())
-
-        let x1=this.currentDate.getTime();
-        let x2=t.date.getTime();
-        let time=x1-x2;
-        let Days = Math.floor(time / (1000 * 3600 * 24));
-
-        // console.log(Days)
+        // console.log(t);
+         console.log(this.t1)
         
 
-   
     }
 
-    getDays($event:any){
+    getDue($event: any): string{
+        let x1=this.currentDate.getTime();
+        let x2=$event.date.getTime();
+        let time=x1-x2;
+        this.Days = Math.floor(time / (1000 * 3600 * 24));
         
-            let t=new task($event["id"],$event["title"],$event["date"],$event["desc"],$event["status"]);
-           let x1=this.currentDate.getTime();
-           let x2=t.date.getTime();
-           let time=x1-x2;
-            this.Days = time / (1000 * 3600 * 24);
-            console.log(this.Days)
-
-            
-          
-           
+        if(this.Days===0){
+            $event.deuDate="today";
+        } else if(this.Days===-1){
+            $event.deuDate="tomorrow";
+        } else{
+            $event.deuDate="safe";
+        }
         
-       
+        return $event.deuDate;       
     }
 
 }
